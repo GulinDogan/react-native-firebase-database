@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "822571808990",
+    "firebase_url": "https://experiencesampling-a0ecd.firebaseio.com",
+    "project_id": "experiencesampling-a0ecd",
+    "storage_bucket": "experiencesampling-a0ecd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822571808990:android:9b9313a651717768baaa4f",
+        "android_client_info": {
+          "package_name": "com.dogan.experience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822571808990-6uj4a01j8mvgunkruqala0eiibp05m49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dogan.experience",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "822571808990-polmdtpbg0m8ssftqiija0h2fohqvdhb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcxERGWXbpBhLlAFtPP-KXN7oyBWnPsbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822571808990-polmdtpbg0m8ssftqiija0h2fohqvdhb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
