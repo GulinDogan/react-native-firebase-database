@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Image } from 'react-native';
-import log from '../images/rate.png'
+import log from '../../images/rate.png'
 
 const Logo = () => {
     return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import Logo from './Logo';
-import BG from '../images/bg3.jpg';
+import BG from '../../images/bg3.jpg';
 import EmailAndPassword from '../backend/LoginEmailAndPassword';
 
 class LoginForm extends Component {

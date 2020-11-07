@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Logo from './Logo';
-import BG from '../images/bg3.jpg'
-import NewPassword from '../backend/ForgotPassword';
+import BG from '../../images/bg3.jpg'
+import SingupEmailAndPassword from '../backend/SignupEmailAndPassword';
 
-class ForgotPasswordForm extends Component {
-
-  
+class SignUpForm extends Component {
     render(){
         return (
             <ImageBackground style={styles.container} source= {BG} > 
                 <View>
                     <Logo/>
                 </View>
-                <Text style = {styles.header}>New Password </Text>
                 <View>
-                    <NewPassword/>
+                    <SingupEmailAndPassword/>
                 </View>
 
             </ImageBackground>
@@ -27,14 +24,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 200
+
     },
-    header: {
-        fontSize:20,
-        color:'white',
-        alignSelf:'center',
-        marginTop:15,
-        fontWeight:'bold'
+
+    logoContainer:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent:'center'
+    },
+    emailAndPassword:{
+        flex:2
     }
 });
 
-export default ForgotPasswordForm;
+export default SignUpForm;
