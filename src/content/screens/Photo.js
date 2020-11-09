@@ -1,36 +1,142 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React, { Component } from 'react'
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import { AsyncStorage } from '@react-native-community/async-storage'
+import { RNCamera } from 'react-native-camera';
+import IconLib1 from "react-native-vector-icons/FontAwesome";
+//import IconLib2 from "react-native-vector-icons/EvilIcons";
 
-export default class App extends Component {
+import firebase from 'firebase'
+
+export default class Photo extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: '',
+      fileName: ''
+    }
+  }
+
+
+  takePicture = async () => {
+    if (this.camera) {
+      try {
+        const options = {     
+            quality: 0.7,
+            base64: true,
+      
+        };
+      
+        const data = await this.camera.takePictureAsync(options);
+
+        var str = data.uri
+        var name = str.substring(52, 92);
+
+        this.setState({
+          url : str,
+          fileName : name
+        })
+
+        // Create the file metadata
+        var metadata = {
+        contentType: 'image'
+        };
+            
+        console.log("fileName: " +this.state.fileName)
+        // Create a root reference
+        var storageRef = await firebase.storage().ref().child("gs://" +this.state.fileName)
+    
+        const response = await fetch(this.state.url);
+        const blob = await response.blob();
+
+        const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("SucsessPage"))
+          
+      } 
+      catch (err) {
+          console.log('err: ', err);
+          
+      }
+    }
+  };
+
+  /*
+    sharePicture = async () => {
+
+      try {
+          // Create the file metadata
+          var metadata = {
+          contentType: 'image'
+          };
+             
+          console.log("fileName: " +this.state.fileName)
+          // Create a root reference
+          var storageRef = await firebase.storage().ref().child("gs://" +this.state.fileName)
+      
+          const response = await fetch(this.state.url);
+          const blob = await response.blob();
+
+          const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Sucsess"))
+        }   
+      
+      catch (err) {
+          console.log('err: ', err);
+      }
+  };
+*/
   render() {
     return (
       <View style={styles.container}>
-        <Text>Take a Photo</Text>
+        <RNCamera
+          ref={cam => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+        >
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={this.takePicture}>
+            <IconLib1 name="camera-retro" color="#ccc" size={50} />
+            </TouchableOpacity>
+          </View>
+
+        </RNCamera>
       </View>
     );
   }
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'column',
+    backgroundColor: 'black',
   },
-  view: {
+  preview: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   capture: {
     flex: 0,
-    backgroundColor: 'steelblue',
-    borderRadius: 10,
-    color: 'red',
+    backgroundColor: '#fff',
+    borderRadius: 5,
     padding: 15,
-    margin: 45
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20,
+  },
+  buttonContainer: {
+    width:'100%',
+    position: 'absolute',
+    bottom:30,
+    alignItems:'center'
+  },
+  shareContainer:{
+    width:'100%',
+    position: 'absolute',
+    left:330,
+    top:20
   }
+  
 });

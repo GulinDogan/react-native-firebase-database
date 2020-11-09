@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "822571808990-6uj4a01j8mvgunkruqala0eiibp05m49.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dogan.experience",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
           "client_id": "822571808990-polmdtpbg0m8ssftqiija0h2fohqvdhb.apps.googleusercontent.com",
           "client_type": 3
         }

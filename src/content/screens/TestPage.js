@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Survey from '../survey/Survey'
+import Survey from './Survey'
 import Voice from './Voice'
 import Photo from './Photo'
 
@@ -21,22 +21,20 @@ function TestPage() {
             <MaterialCommunityIcons name="book" color={color} size={26} />
           ),
         }}  />
-        <Tab.Screen name="Voice" component={Voice}         
-          options={{
-          tabBarLabel: 'Updates',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account-tie-voice" color={color} size={26} />
-          ),
-        }} />
         <Tab.Screen name="Photo" component={Photo} 
           options={{
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="camera" color={color} size={26} />
             ),
-          }}
-
-        />
+          }} />
+          <Tab.Screen name="Voice" component={Voice}         
+          options={{
+          tabBarLabel: 'Updates',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account-tie-voice" color={color} size={26} />
+          ),
+        }} />
     </Tab.Navigator>
   );
 }

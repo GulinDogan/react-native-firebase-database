@@ -6,6 +6,7 @@ import FirebaseConfig from './FirebaseConfig';
 import LoginForm from '../authentication/LoginForm';
 import SignUpForm from '../authentication/SignUpForm';
 import ForgotPassword from '../authentication/ForgotPasswordForm';
+import SucsessPage from '../content/Sucsess'
 
 import DrawerNav from './DrawerNav';
 
@@ -21,6 +22,7 @@ function Start () {
           <Stack.Screen name="LoginForm" component={LoginForm}/>
           <Stack.Screen name="SignUpForm" component={SignUpForm}/>
           <Stack.Screen name="ForgotPassword" component={ForgotPassword}/> 
+          <Stack.Screen name="SucsessPage" component={SucsessPage}/> 
         </Stack.Navigator>
       </NavigationContainer>
     );
