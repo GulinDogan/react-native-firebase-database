@@ -22,15 +22,16 @@ export default class Photo extends Component {
     if (this.camera) {
       try {
         const options = {     
-            quality: 0.7,
+            quality: 0.9,
             base64: true,
-      
+            orientation: RNCamera.Constants.ORIENTATION_UP,
+            fixOrientation: true
         };
       
         const data = await this.camera.takePictureAsync(options);
 
         var str = data.uri
-        var name = str.substring(52, 92);
+        var name = str.substring(56, 92);
 
         this.setState({
           url : str,
@@ -44,12 +45,12 @@ export default class Photo extends Component {
             
         console.log("fileName: " +this.state.fileName)
         // Create a root reference
-        var storageRef = await firebase.storage().ref().child("gs://" +this.state.fileName)
+        var storageRef = await firebase.storage().ref().child("Images/" +this.state.fileName)
     
         const response = await fetch(this.state.url);
         const blob = await response.blob();
 
-        const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("SucsessPage"))
+        const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Voice"))
           
       } 
       catch (err) {

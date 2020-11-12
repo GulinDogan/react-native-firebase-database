@@ -188,6 +188,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-audio-recorder-player')
 
     implementation 'com.android.support:multidex:2.0.1'
     // Import the Firebase BoM

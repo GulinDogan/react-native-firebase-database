@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Button, StyleSheet} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import firebase from 'firebase'
 
 export default class Settings extends Component {
@@ -15,15 +15,33 @@ export default class Settings extends Component {
         password:'',
         loggedIn: null
       }
+
+    newPassword = () => {
+        firebase.auth().sendPasswordResetEmail(this.state.email)
+        .then(function (user) {
+        alert('Please check your email...')
+        }).catch(err => {
+            this.setState({
+                error:err.message
+            })
+        })
+    }
+
     render() {
         return (
            <View style = {styles.container}> 
-
-                <Button
-                title="Sign out"
+            <View>
+            <TouchableOpacity style = {styles.ButtonContanier}
                 onPress={() => firebase.auth().signOut().then(this.setState.loggedIn = false)} 
-                />
+                ><Text style = {styles.ButtonText}>Sign Out</Text>
+            </TouchableOpacity>
 
+            <TouchableOpacity style = {styles.ButtonContanier}
+                onPress={() => this.newPassword()} >
+                <Text style = {styles.ButtonText}>New Password</Text>
+            </TouchableOpacity>
+
+            </View>
            </View>
         )
     }
@@ -33,6 +51,18 @@ export default class Settings extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 50
+        padding: 20,
+        marginTop: 100
+    },
+    ButtonText:{
+        fontSize:16,
+        textAlign: 'center'
+    },
+    ButtonContanier:{
+        padding: 5,
+        margin:10,
+        backgroundColor:'#ccc',
+        borderRadius: 10
+        
     }
 });

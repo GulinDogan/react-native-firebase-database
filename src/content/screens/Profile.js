@@ -37,60 +37,82 @@ class Profile extends Component {
     }
   
   }
+/*
+  getInfo = async () =>{
+    var ref = firebase.database().ref("Demographic");
 
+    ref.on("value", function(snapshot) {
+     snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      var id=childData.id;
+      console.log(childData);
+      if(childData != null){
+        this.setState = {
+          Age: childData.Age,
+          Sex: childData.Sex,
+          Height: childData.Height,
+          Weight: childData.Weight,
+          Job: childData.Job
+        }
+      }
+     });
+    });
+  }
+*/
 
   render() {
     
     return (
       <ScrollView style={styles.container}>
-        <View>
+        <View style = {styles.inputGroup}>
         
-        <Text>1. Age:</Text>
+        <Text>Age:</Text>
             <TextInput
                placeholder="Age" 
                value={this.state.Age}
                onChangeText={ Age => this.setState({Age})}
             />
 
-            
-
-            <Text>2. Sex:</Text>
+            <Text>Sex:</Text>
             <TextInput 
                placeholder="Sex" 
                 value={this.state.Sex}
                 onChangeText={Sex => this.setState({Sex})}
             />
 
-            <Text>3. Height:</Text>
+            <Text>Height:</Text>
             <TextInput
                placeholder="Height" 
                value={this.state.Height}
                onChangeText={ Height => this.setState({Height})}
            />
 
-            <Text>4. Weight:</Text>
+            <Text>Weight:</Text>
             <TextInput
                placeholder="Weight"
                value={this.state.Weight}
                onChangeText={ Weight => this.setState({Weight})}
             />
             
-            <Text>5. Job:</Text>
+            <Text>Job:</Text>
             <TextInput
                placeholder="Job" 
                value={this.state.Job}
                onChangeText={ Job => this.setState({Job})}
             />
-        
-            <TouchableOpacity style={ styles.buttonContainer }
-            onPress={() => this.addStore()}
-            title="Submit">
-                <Text style= {styles.buttonText}>
-                Submit
-            </Text>
-            </TouchableOpacity>
+  
+        </View>
+        <View>
+          <TouchableOpacity style={ styles.buttonContainer }
+              onPress={() => this.addStore()}
+              title="Submit">
+                  <Text style= {styles.buttonText}>
+                  Submit
+              </Text>
+          </TouchableOpacity>
 
         </View>
+
       </ScrollView>
     );
   }
@@ -99,11 +121,10 @@ class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 35
+    padding: 20
   },
   inputGroup: {
-    flex: 1,
-    padding: 0,
+    paddingTop:100,
     marginBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
@@ -120,9 +141,7 @@ const styles = StyleSheet.create({
   buttonContainer:{
     backgroundColor:'#3B3B98',
     padding:10,
-    marginBottom:30,
-    marginLeft:20,
-    marginRight:20,
+    margin:20,
     borderRadius:10,
     
 },
@@ -130,7 +149,7 @@ buttonText:{
     textAlign:'center',
     color:'#fff',
     fontWeight:'bold',
-    fontSize:20
+    fontSize:16
 
 }
 })

@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
     logo:{
-      width: 200,
-      height: 100
+      width: 220,
+      height: 80
     },
     logoText: {
         color:'white',
-        fontSize: 20, 
+        fontSize: 10, 
         marginTop: 10,
         opacity:0.5    
     }
