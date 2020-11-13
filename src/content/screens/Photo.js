@@ -25,7 +25,7 @@ export default class Photo extends Component {
             quality: 0.9,
             base64: true,
             orientation: RNCamera.Constants.ORIENTATION_UP,
-            fixOrientation: true
+
         };
       
         const data = await this.camera.takePictureAsync(options);
@@ -91,6 +91,7 @@ export default class Photo extends Component {
           ref={cam => {
             this.camera = cam;
           }}
+          type={RNCamera.Constants.Type.front}
           style={styles.preview}
         >
 

@@ -99,7 +99,7 @@ export default class Voice extends Component {
                     console.log("Name: "+name)
            
                     // Create a root reference
-                    var storageRef = await firebase.storage().ref().child("Voice//:" +name)
+                    var storageRef = await firebase.storage().ref().child("gs//:" +name)
 
                     console.log(this.state.url)
                     const response = await fetch(this.state.url);

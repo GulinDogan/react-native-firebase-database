@@ -9,6 +9,7 @@ class Profile extends Component {
     
     super(props);
     this.state = {
+      uid: "",
       Age: "",
       Sex: "",
       Height: "",
@@ -37,8 +38,10 @@ class Profile extends Component {
     }
   
   }
-/*
+
+  /*
   getInfo = async () =>{
+
     var ref = firebase.database().ref("Demographic");
 
     ref.on("value", function(snapshot) {
@@ -60,8 +63,30 @@ class Profile extends Component {
   }
 */
 
+/*
+ComponentDidMount(){
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      console.log(user)
+      this.setState({
+        uid: user.uid,
+        Age: user.Age,
+        Sex: user.Sex,
+        Height: user.Height,
+        Weight: user.Weight,
+        Job: user.Job
+
+      })
+    } else {
+        // No user is signed in.
+        console.log('There is no logged in user');
+    }
+});
+}
+*/
   render() {
-    
+
     return (
       <ScrollView style={styles.container}>
         <View style = {styles.inputGroup}>

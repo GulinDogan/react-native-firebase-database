@@ -23,18 +23,19 @@ function TestPage() {
         }}  />
         <Tab.Screen name="Photo" component={Photo} 
           options={{
-            tabBarLabel: 'Profile',
+            tabBarLabel: 'Camera',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="camera" color={color} size={26} />
             ),
           }} />
           <Tab.Screen name="Voice" component={Voice}         
           options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Voice Recorder',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account-tie-voice" color={color} size={26} />
           ),
-        }} />
+        }} 
+        />
     </Tab.Navigator>
   );
 }
