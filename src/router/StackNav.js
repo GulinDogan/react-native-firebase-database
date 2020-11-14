@@ -6,6 +6,7 @@ import FirebaseConfig from './FirebaseConfig';
 import LoginForm from '../authentication/LoginForm';
 import SignUpForm from '../authentication/SignUpForm';
 import ForgotPassword from '../authentication/ForgotPasswordForm';
+import Settings from '../content/screens/Settings'
 import SucsessPage from '../content/Sucsess'
 
 import DrawerNav from './DrawerNav';
@@ -19,6 +20,7 @@ function Start () {
          <Stack.Navigator initialRouteName="FirebaseConfig" headerMode="none" >
           <Stack.Screen name="Experience Sampling Authentication" component={FirebaseConfig} />
           <Stack.Screen name="DrawerNav" component={DrawerNav}/>
+          <Stack.Screen name="Settings" component={Settings}/> 
           <Stack.Screen name="LoginForm" component={LoginForm}/>
           <Stack.Screen name="SignUpForm" component={SignUpForm}/>
           <Stack.Screen name="ForgotPassword" component={ForgotPassword}/> 

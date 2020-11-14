@@ -23,27 +23,38 @@ class Survey extends Component {
   
     addStore = async () => {
       try{    
-        let db = await firebase.database().ref("Survey/") 
-        console.log("Db: ", db)
         
-        db.push({
-          A1: this.state.A1,
-          A2: this.state.A2,
-          A3: this.state.A3,
-          A4: this.state.A4,
-          A5: this.state.A5,
-          A6: this.state.A6,
-          A7: this.state.A7
-        }) 
-        alert("The survey has been successfully saved")
-        this.props.navigation.navigate('Photo')
+        const user = firebase.auth().currentUser
+
+          if (user) {
+            console.log('User uid: ', user.uid)
+            await this.changeHandler(user.uid)
+            console.log("This state uid: ", this.state.UID)  
+            
+            let db = await firebase.database().ref("Survey").child(this.state.UID)
+            console.log("Db: ", db)
+        
+            db.push({
+              A1: this.state.A1,
+              A2: this.state.A2,
+              A3: this.state.A3,
+              A4: this.state.A4,
+              A5: this.state.A5,
+              A6: this.state.A6,
+              A7: this.state.A7
+            }) 
+            alert("The survey has been successfully saved")
+            this.props.navigation.navigate('Photo')
+          }
+        }
+        catch(err) {
+          console.log('Error getting documents', err);
+        }
       }
-      catch(err) {
-        console.log('Error getting documents', err);
-      }
-    
-    }
-  
+
+    async changeHandler(event) {
+        await this.setState({ UID: event });
+  }
   
     render() {
       return (

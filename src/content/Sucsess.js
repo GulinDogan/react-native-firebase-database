@@ -13,9 +13,7 @@ class Sucsess extends Component {
             password:'',
             loggedIn: null,
           }
-        
     }
-
 
     render() {
         return (

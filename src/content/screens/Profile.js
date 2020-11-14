@@ -6,120 +6,88 @@ import firebase from 'firebase'
 class Profile extends Component {
   
   constructor(props) {
-    
     super(props);
     this.state = {
-      uid: "",
-      Age: "",
-      Sex: "",
-      Height: "",
-      Weight: "",
-      Job: ""
-    };
+      userData: {
+        UID: "",
+        Age: "",
+        Sex: "",
+        Height: "",
+        Weight: "",
+        Job: ""
+      }
     }
+    };
+    
 
+  
 
   addStore = async () => {
     try{    
-      let db = await firebase.database().ref("Demographic/") 
-      console.log("Db: ", db)
+      const user = firebase.auth().currentUser
+      if (user) {
+        console.log('User uid: ', user.uid)
+        await this.changeHandler(user.uid)
+        console.log("This state uid: ", this.state.userData["UID"])
       
-      db.push({
-        Age: this.state.Age,
-        Sex: this.state.Sex,
-        Height: this.state.Height,
-        Weight: this.state.Weight,
-        Job: this.state.Job
-      }) 
-      alert("The survey has been successfully saved")
+        DemographicDB = firebase.database().ref("Demographic").child(this.state.userData.UID)
+        DemographicDB.push({
+          
+          Age: this.state.userData.Age,
+          Sex: this.state.userData.Sex,
+          Height: this.state.userData.Height,
+          Weight: this.state.userData.Weight,
+          Job: this.state.userData.Job
+        }) 
+        alert("The survey has been successfully saved")
+
+      }
     }
     catch(err) {
       console.log('Error getting documents', err);
     }
+  }
   
-  }
-
-  /*
-  getInfo = async () =>{
-
-    var ref = firebase.database().ref("Demographic");
-
-    ref.on("value", function(snapshot) {
-     snapshot.forEach(function(childSnapshot) {
-      var childData = childSnapshot.val();
-      var id=childData.id;
-      console.log(childData);
-      if(childData != null){
-        this.setState = {
-          Age: childData.Age,
-          Sex: childData.Sex,
-          Height: childData.Height,
-          Weight: childData.Weight,
-          Job: childData.Job
-        }
-      }
-     });
-    });
-  }
-*/
-
-/*
-ComponentDidMount(){
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log(user)
-      this.setState({
-        uid: user.uid,
-        Age: user.Age,
-        Sex: user.Sex,
-        Height: user.Height,
-        Weight: user.Weight,
-        Job: user.Job
-
-      })
-    } else {
-        // No user is signed in.
-        console.log('There is no logged in user');
-    }
-});
+  async changeHandler (event) {
+      userData = this.state.userData
+      userData["UID"] = event
+      this.setState({userData:userData})
 }
-*/
-  render() {
 
+  render() {
     return (
       <ScrollView style={styles.container}>
         <View style = {styles.inputGroup}>
         
-        <Text>Age:</Text>
+        <Text>Age</Text>
             <TextInput
-               placeholder="Age" 
-               value={this.state.Age}
-               onChangeText={ Age => this.setState({Age})}
-            />
-
-            <Text>Sex:</Text>
+              placeholder="Age" 
+              value={this.state.Age}
+               onChangeText={Age => this.setState({Age})} 
+               />  
+          
+            <Text>Sex</Text>
             <TextInput 
                placeholder="Sex" 
-                value={this.state.Sex}
+               value={this.state.Sex}
                 onChangeText={Sex => this.setState({Sex})}
             />
 
-            <Text>Height:</Text>
+            <Text>Height</Text>
             <TextInput
                placeholder="Height" 
                value={this.state.Height}
                onChangeText={ Height => this.setState({Height})}
            />
 
-            <Text>Weight:</Text>
+            <Text>Weight</Text>
             <TextInput
                placeholder="Weight"
                value={this.state.Weight}
                onChangeText={ Weight => this.setState({Weight})}
             />
             
-            <Text>Job:</Text>
+            <Text>Job</Text>
             <TextInput
                placeholder="Job" 
                value={this.state.Job}
@@ -147,6 +115,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20
+  },
+  info:{
+    color: 'black',
+    textAlign:'center',
+    fontWeight:'bold',
+    fontSize:16
   },
   inputGroup: {
     paddingTop:100,

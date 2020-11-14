@@ -1,11 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet}from 'react-native'
+import {Image}from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import TestPage from '../content/screens/TestPage'
 import Profile from '../content/screens/Profile'
+import Settings from '../content/screens/Settings'
+
 import test from '../../images/test.png'
 import user from '../../images/user.png'
+import adjustment from '../../images/settings.png'
 
 import { color } from 'react-native-reanimated';
 
@@ -24,16 +27,26 @@ function MyDrawer() {
                 style={[focused ? color:'#7cc', { height: 40, width: 40 }]}
               />
            ) }}/>
-        <Drawer.Screen name="Experience" component={TestPage}
-                options={{
-                  title: 'Experience',
-                  drawerIcon: ({ focused, size }) => (
-                      <Image
-                        source={test}
-                        style={[focused ? color:'#7cc', { height: 35, width: 35 }]}
-                      />
-                   ) }}
-                    />
+      <Drawer.Screen name="Experience" component={TestPage}
+          options={{
+            title: 'Experience',
+            drawerIcon: ({ focused, size }) => (
+                <Image
+                  source={test}
+                  style={[focused ? color:'#7cc', { height: 35, width: 35 }]}
+                />
+              ) }}
+              />
+      <Drawer.Screen name="Settings" component={Settings}
+          options={{
+            title: 'Settings',
+            drawerIcon: ({ focused, size }) => (
+                <Image
+                  source={adjustment}
+                  style={[focused ? color:'#7cc', { height: 35, width: 35 }]}
+                />
+              ) }}
+              />
       </Drawer.Navigator>
 
   );

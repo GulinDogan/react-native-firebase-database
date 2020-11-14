@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput} from 'react-native';
 import Logo from './Logo';
 import BG from '../../images/bg3.jpg';
 import firebase from 'firebase'
 
 class LoginForm extends Component {
-    static contextType = NavigationContext;
 
     state={
         email:'',
@@ -34,7 +32,6 @@ class LoginForm extends Component {
     }
 
       render(){
-        const navigation = this.context;
         return (
             <ImageBackground style = {styles.container} source = {BG}>
                 
@@ -69,14 +66,14 @@ class LoginForm extends Component {
                      
                 <View style={styles.forgotContainer}>
 					
-					<TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+					<TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPassword')}>
                         <Text style={styles.signupText} >Forgot Password</Text>
                     </TouchableOpacity>
                 </View>
                 
                 <View style={styles.signupTextCont}>
 					
-					< TouchableOpacity onPress = {() =>  navigation.navigate('SignUpForm')} >
+					< TouchableOpacity onPress = {() =>  this.props.navigation.navigate('SignUpForm')} >
                         <Text style={styles.signupText} >Do not have an account yet? Signup</Text>
                     </TouchableOpacity>
 			    </View>
