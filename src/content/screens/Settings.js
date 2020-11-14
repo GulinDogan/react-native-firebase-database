@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet, Image} from 'react-native'
 import firebase from 'firebase'
-import ForgotPasswordForm from '../../authentication/ForgotPasswordForm'
+import lock from '../../../images/lock3.png'
+import signOut from '../../../images/door.jpg'
 
 export default class Settings extends Component {
 
@@ -25,12 +26,14 @@ export default class Settings extends Component {
            <View style = {styles.container}> 
             <View>
             <TouchableOpacity style = {styles.ButtonContanier}
-                onPress={() => firebase.auth().signOut().then(this.setState.loggedIn = false)} 
-                ><Text style = {styles.ButtonText}>Sign Out</Text>
+                onPress={() => firebase.auth().signOut().then(this.setState.loggedIn = false)}>
+                <Image style = {styles.icon1} source = {signOut}/>
+            <Text style = {styles.ButtonText}>Sign Out</Text>
             </TouchableOpacity>
-
+               
             <TouchableOpacity style = {styles.ButtonContanier}
                 onPress={() => this.props.navigation.navigate("ForgotPasswordForm")}>
+                     <Image style = {styles.icon2} source = {lock}/>
                 <Text style = {styles.ButtonText}>New Password</Text>
             </TouchableOpacity>
 
@@ -43,19 +46,24 @@ export default class Settings extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 20,
-        marginTop: 100
+        flex: 1
     },
     ButtonText:{
         fontSize:16,
-        textAlign: 'center'
+        textAlign: 'center',
+        margin:5
     },
     ButtonContanier:{
-        padding: 5,
         margin:10,
-        backgroundColor:'#ccc',
-        borderRadius: 10
-        
+        alignItems: 'center',
+        marginTop:100
+    },
+    icon1:{
+        height: 100,
+        width: 100,
+    },
+    icon2:{
+        height: 100,
+        width: 100
     }
 });

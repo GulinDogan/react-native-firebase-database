@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg3.jpg'
+import BG from '../../images/bg1.jpg'
 import firebase from 'firebase'
 
 class SignUpForm extends Component {
+    
+    static contextType = NavigationContext;
 
     state={
         email:'',
@@ -14,11 +17,13 @@ class SignUpForm extends Component {
     }
     
     onBottomPress = () =>{
+        navigation = this.context;
+
 
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.navigation.navigate('LoginForm'))
+            .then(() => navigation.navigate('LoginForm'))
             .catch(function(error) {
                 alert(error)
             })

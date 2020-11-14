@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput} from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg3.jpg';
+import BG from '../../images/bg1.jpg';
 import firebase from 'firebase'
 
 class LoginForm extends Component {
+
+    static contextType = NavigationContext;
 
     state={
         email:'',
         password:'',
         error:'',
-        loading:false
+        loading:false,
+        demographic: false
     }
+
 
     onBottomPress = () =>{
         firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
@@ -30,8 +35,8 @@ class LoginForm extends Component {
             loading:false
         })
     }
-
       render(){
+        const navigation = this.context;
         return (
             <ImageBackground style = {styles.container} source = {BG}>
                 
@@ -66,14 +71,14 @@ class LoginForm extends Component {
                      
                 <View style={styles.forgotContainer}>
 					
-					<TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPassword')}>
+					<TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={styles.signupText} >Forgot Password</Text>
                     </TouchableOpacity>
                 </View>
                 
                 <View style={styles.signupTextCont}>
 					
-					< TouchableOpacity onPress = {() =>  this.props.navigation.navigate('SignUpForm')} >
+					< TouchableOpacity onPress = {() =>  navigation.navigate('SignUpForm')} >
                         <Text style={styles.signupText} >Do not have an account yet? Signup</Text>
                     </TouchableOpacity>
 			    </View>
@@ -101,13 +106,11 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(255,255,255,.5)',
         paddingLeft:10,
         marginBottom:15,
-        marginTop:15,
+        marginTop:10,
         borderRadius:5,
-        fontSize:15,
-    
     },
     errorText:{
-        fontSize:16,
+        fontSize:14,
         color:'red',
         alignSelf:'center',
         marginTop:15
@@ -121,11 +124,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         backgroundColor:'#3B3B98',
-        padding:15,
+        padding:8,
         borderRadius:8,
-        height:50,
-        paddingLeft:10,
-        fontSize:20
+        height:40,
+
     },
     forgotContainer : {
         left: 190,

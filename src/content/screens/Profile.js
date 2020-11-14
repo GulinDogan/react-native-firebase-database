@@ -19,10 +19,7 @@ class Profile extends Component {
     }
     };
     
-
-  
-
-  addStore = async () => {
+    addStore = async () => {
     try{    
       const user = firebase.auth().currentUser
       if (user) {
@@ -33,11 +30,12 @@ class Profile extends Component {
         DemographicDB = firebase.database().ref("Demographic").child(this.state.userData.UID)
         DemographicDB.push({
           
-          Age: this.state.userData.Age,
-          Sex: this.state.userData.Sex,
-          Height: this.state.userData.Height,
-          Weight: this.state.userData.Weight,
-          Job: this.state.userData.Job
+          Age: this.state.Age,
+          Sex: this.state.Sex,
+          Height: this.state.Height,
+          Weight: this.state.Weight,
+          Job: this.state.Job
+          
         }) 
         alert("The survey has been successfully saved")
 

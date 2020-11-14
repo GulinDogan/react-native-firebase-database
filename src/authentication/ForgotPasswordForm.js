@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg3.jpg'
+import BG from '../../images/bg1.jpg'
 import firebase from 'firebase'
 
 class ForgotPasswordForm extends Component {

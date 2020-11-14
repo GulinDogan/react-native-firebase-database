@@ -14,17 +14,19 @@ import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator();
 
+
 function MyDrawer() {
   return (
-   
-      <Drawer.Navigator initialRouteName = 'Profile'> 
+  
+    <Drawer.Navigator initialRouteName = 'Profile'> 
+    
         <Drawer.Screen name="Profile" component={Profile} 
         options={{
           title: 'Profile',
           drawerIcon: ({ focused, size }) => (
               <Image
                 source={user}
-                style={[focused ? color:'#7cc', { height: 40, width: 40 }]}
+                style={[focused ? color:'#7cc', {marginTop:50, height: 62, width: 40 }]}
               />
            ) }}/>
       <Drawer.Screen name="Experience" component={TestPage}
@@ -33,7 +35,7 @@ function MyDrawer() {
             drawerIcon: ({ focused, size }) => (
                 <Image
                   source={test}
-                  style={[focused ? color:'#7cc', { height: 35, width: 35 }]}
+                  style={[focused ? color:'#7cc', { height: 62, width: 62 }]}
                 />
               ) }}
               />
@@ -43,7 +45,7 @@ function MyDrawer() {
             drawerIcon: ({ focused, size }) => (
                 <Image
                   source={adjustment}
-                  style={[focused ? color:'#7cc', { height: 35, width: 35 }]}
+                  style={[focused ? color:'#7cc', { height: 62, width: 60 }]}
                 />
               ) }}
               />
