@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import { AsyncStorage } from '@react-native-community/async-storage'
 import { RNCamera } from 'react-native-camera';
 import IconLib1 from "react-native-vector-icons/FontAwesome";
-//import IconLib2 from "react-native-vector-icons/EvilIcons";
 
 import firebase from 'firebase'
 
@@ -21,7 +20,8 @@ export default class Photo extends Component {
   takePicture = async () => {
     if (this.camera) {
       try {
-        const options = {     
+        const options = {    
+            pauseAfterCapture: true, 
             quality: 0.9,
             base64: true,
             orientation: RNCamera.Constants.ORIENTATION_UP,
@@ -36,22 +36,7 @@ export default class Photo extends Component {
         this.setState({
           url : str,
           fileName : name
-        })
-
-        // Create the file metadata
-        var metadata = {
-        contentType: 'image'
-        };
-            
-        console.log("fileName: " +this.state.fileName)
-        // Create a root reference
-        var storageRef = await firebase.storage().ref().child("Images/" +this.state.fileName)
-    
-        const response = await fetch(this.state.url);
-        const blob = await response.blob();
-
-        const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Voice"))
-          
+        })          
       } 
       catch (err) {
           console.log('err: ', err);
@@ -60,7 +45,7 @@ export default class Photo extends Component {
     }
   };
 
-  /*
+  
     sharePicture = async () => {
 
       try {
@@ -71,19 +56,19 @@ export default class Photo extends Component {
              
           console.log("fileName: " +this.state.fileName)
           // Create a root reference
-          var storageRef = await firebase.storage().ref().child("gs://" +this.state.fileName)
+          var storageRef = await firebase.storage().ref().child("Images/" +this.state.fileName)
       
           const response = await fetch(this.state.url);
           const blob = await response.blob();
 
-          const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Sucsess"))
+          const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Voice"))
         }   
       
       catch (err) {
           console.log('err: ', err);
       }
   };
-*/
+
   render() {
     return (
       <View style={styles.container}>
@@ -98,6 +83,13 @@ export default class Photo extends Component {
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={this.takePicture}>
             <IconLib1 name="camera-retro" color="#ccc" size={50} />
+            </TouchableOpacity>
+          </View>
+
+          
+          <View style={styles.shareContainer}>
+            <TouchableOpacity onPress={this.sharePicture}>
+            <IconLib1 name="share-alt" color="#ccc" size={30} />
             </TouchableOpacity>
           </View>
 
@@ -137,7 +129,7 @@ const styles = StyleSheet.create({
   shareContainer:{
     width:'100%',
     position: 'absolute',
-    left:330,
+    left:300,
     top:20
   }
   

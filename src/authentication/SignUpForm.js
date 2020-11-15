@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg1.jpg'
+import BG from '../../images/bg3.jpg'
 import firebase from 'firebase'
 
 class SignUpForm extends Component {
@@ -66,12 +66,11 @@ class SignUpForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 150,
+        paddingTop: 200,
         padding:20
     },
     header: {
         fontSize:16,
-        color:'white',
         alignSelf:'center',
         marginTop:15,
         marginBottom:15,
@@ -101,29 +100,13 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         backgroundColor:'#3B3B98',
-        padding:15,
+        padding:10,
         borderRadius:8,
-        height:50,
+        height:40,
         paddingLeft:10,
         fontSize:20
 
-    },
-    signupTextCont : {
-        flexGrow: 1,
-        alignItems:'flex-end',
-        justifyContent :'center',
-        paddingVertical:16,
-        flexDirection:'row'
-        },
-        signupText: {
-            color:'rgba(255,255,255,0.6)',
-            fontSize:16
-        },
-        signupButton: {
-            color:'#ffffff',
-            fontSize:16,
-            fontWeight:'500'
-        }
+    }
 });
 
 export default SignUpForm;

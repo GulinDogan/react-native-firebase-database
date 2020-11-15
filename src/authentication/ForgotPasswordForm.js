@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg1.jpg'
+import BG from '../../images/bg3.jpg'
 import firebase from 'firebase'
 
 class ForgotPasswordForm extends Component {
@@ -56,12 +56,11 @@ onBottomPress = () =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 150,
+        paddingTop: 200,
         padding:20
     },
     header: {
         fontSize:16,
-        color:'white',
         alignSelf:'center',
         marginTop:15,
         marginBottom:15,
@@ -91,11 +90,11 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         backgroundColor:'#3B3B98',
-        padding:15,
+        padding:10,
         borderRadius:8,
-        height:50,
-        paddingLeft:10,
-        fontSize:20
+        height:40,
+     
+    
 
     }
     

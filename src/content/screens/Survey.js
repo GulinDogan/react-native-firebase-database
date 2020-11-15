@@ -14,7 +14,8 @@ class Survey extends Component {
         Sex: "",
         Height: "",
         Weight: "",
-        Job: ""
+        Job: "",
+        error: ""
       }
     }
     };
@@ -45,10 +46,20 @@ class Survey extends Component {
     }
     catch(err) {
       console.log('Error getting documents', err);
+      this.changeHandler2(err)
+
     }
   }
+
+  changeHandler2 (err) {
+    this.setState(prevState => {
+      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable jasper
+      userData.error = 'Please Fill In All Fields';                     // update the name property, assign a new value                 
+      return { userData };                                 // return new object jasper object
+    })
+}
   
-  async changeHandler (event) {
+  changeHandler (event) {
       userData = this.state.userData
       userData["UID"] = event
       this.setState({userData:userData})
@@ -111,7 +122,7 @@ class Survey extends Component {
             />
             
             <Text style={styles.errorText} >
-                    {this.state.error}
+                    {this.state.userData.error}
             </Text>
         
             <TouchableOpacity style={ styles.buttonContainer }
@@ -151,8 +162,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     backgroundColor:'#3B3B98',
-    padding:10,
-    marginBottom:30,
+    padding:8,
+    marginBottom:45,
     marginLeft:20,
     marginRight:20,
     borderRadius:10,

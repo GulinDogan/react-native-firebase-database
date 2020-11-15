@@ -14,10 +14,13 @@ class Profile extends Component {
         Sex: "",
         Height: "",
         Weight: "",
-        Job: ""
-      }
+        Job: "",
+        error: ""
+      },
     }
     };
+
+
     
     addStore = async () => {
     try{    
@@ -27,14 +30,14 @@ class Profile extends Component {
         await this.changeHandler(user.uid)
         console.log("This state uid: ", this.state.userData["UID"])
       
-        DemographicDB = firebase.database().ref("Demographic").child(this.state.userData.UID)
+        DemographicDB = firebase.database().ref("Demographic").child(this.state.userData["UID"])
         DemographicDB.push({
           
           Age: this.state.Age,
-          Sex: this.state.Sex,
+          Sex: this.state.Sex ,
           Height: this.state.Height,
           Weight: this.state.Weight,
-          Job: this.state.Job
+          Job: this.state.Job 
           
         }) 
         alert("The survey has been successfully saved")
@@ -43,10 +46,19 @@ class Profile extends Component {
     }
     catch(err) {
       console.log('Error getting documents', err);
+      await this.changeHandler2(err)
     }
   }
   
-  async changeHandler (event) {
+  changeHandler2 (err) {
+    this.setState(prevState => {
+      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable jasper
+      userData.error = 'Please Fill In All Fields';                     // update the name property, assign a new value                 
+      return { userData };                                 // return new object jasper object
+    })
+}
+
+  changeHandler (event) {
       userData = this.state.userData
       userData["UID"] = event
       this.setState({userData:userData})
@@ -55,8 +67,8 @@ class Profile extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style = {styles.inputGroup}>
-        
+
+        <View style = {styles.inputGroup}>  
         <Text>Age</Text>
             <TextInput
               placeholder="Age" 
@@ -91,6 +103,9 @@ class Profile extends Component {
                value={this.state.Job}
                onChangeText={ Job => this.setState({Job})}
             />
+            <Text style={styles.errorText} >
+                    {this.state.userData.error}
+            </Text>
   
         </View>
         <View>
@@ -114,6 +129,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20
   },
+  errorText:{
+    fontSize:14,
+    color:'red',
+    alignSelf:'center',
+    marginTop:15
+
+},
   info:{
     color: 'black',
     textAlign:'center',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavigationContext } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput} from 'react-native';
 import Logo from './Logo';
-import BG from '../../images/bg1.jpg';
+import BG from '../../images/bg3.jpg';
 import firebase from 'firebase'
 
 class LoginForm extends Component {
@@ -90,12 +90,11 @@ class LoginForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 150,
+        paddingTop: 200,
         padding:20
     },
     header: {
         fontSize:16,
-        color:'white',
         alignSelf:'center',
         marginTop:5,
         marginBottom:5,
@@ -126,15 +125,13 @@ const styles = StyleSheet.create({
         backgroundColor:'#3B3B98',
         padding:8,
         borderRadius:8,
-        height:40,
-
+        height:40
     },
     forgotContainer : {
         left: 190,
         flexDirection:'row'
     },
     signupText: {
-        color:'rgba(255,255,255,0.6)',
         fontSize:16
     }, 
     signupTextCont : {

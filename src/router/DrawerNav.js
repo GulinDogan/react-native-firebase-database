@@ -20,6 +20,7 @@ function MyDrawer() {
   
     <Drawer.Navigator initialRouteName = 'Profile'> 
     
+    
         <Drawer.Screen name="Profile" component={Profile} 
         options={{
           title: 'Profile',
