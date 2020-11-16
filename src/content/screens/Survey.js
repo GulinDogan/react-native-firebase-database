@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground} from 'react-native'
+import BG from '../../../images/bg5.jpg'
 import { AsyncStorage } from '@react-native-community/async-storage'
 import firebase from 'firebase'
 
@@ -54,7 +55,7 @@ class Survey extends Component {
   changeHandler2 (err) {
     this.setState(prevState => {
       let userData = Object.assign({}, prevState.userData);  // creating copy of state variable jasper
-      userData.error = 'Please Fill In All Fields';                     // update the name property, assign a new value                 
+      userData.error = 'Please refresh the app and enter all your information'; // update the name property, assign a new error                 
       return { userData };                                 // return new object jasper object
     })
 }
@@ -67,7 +68,9 @@ class Survey extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
+      <ImageBackground source={BG} style={styles.container}>
+      
         <View>
         
         <Text>1. What are you doing now? (Rest, work or study, hygiene, eating / drinking, leisure, other)</Text>
@@ -134,6 +137,8 @@ class Survey extends Component {
             </TouchableOpacity>
 
         </View>
+      
+      </ImageBackground>
       </ScrollView>
     );
   }

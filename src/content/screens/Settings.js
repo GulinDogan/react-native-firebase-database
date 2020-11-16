@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {View, TouchableOpacity, Text, StyleSheet, Image} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet, Image, ImageBackground} from 'react-native'
 import firebase from 'firebase'
 import lock from '../../../images/lock3.png'
 import signOut from '../../../images/door.jpg'
+import BG from '../../../images/bg5.jpg'
 
 export default class Settings extends Component {
 
@@ -23,7 +24,8 @@ export default class Settings extends Component {
 
     render() {
         return (
-           <View style = {styles.container}> 
+            <ImageBackground source = {BG} style = {styles.container}> 
+        
             <View>
             <TouchableOpacity style = {styles.ButtonContanier}
                 onPress={() => firebase.auth().signOut().then(this.setState.loggedIn = false)}>
@@ -37,8 +39,8 @@ export default class Settings extends Component {
                 <Text style = {styles.ButtonText}>New Password</Text>
             </TouchableOpacity>
 
-            </View>
            </View>
+           </ImageBackground>
         )
     }
 }

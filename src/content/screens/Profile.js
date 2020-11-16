@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground, TouchableHighlightBase} from 'react-native'
+import BG from '../../../images/bg5.jpg'
 import { AsyncStorage } from '@react-native-community/async-storage'
 import firebase from 'firebase'
+
 
 class Profile extends Component {
   
@@ -15,7 +17,8 @@ class Profile extends Component {
         Height: "",
         Weight: "",
         Job: "",
-        error: ""
+        error: "",
+        warring: ""
       },
     }
     };
@@ -46,15 +49,15 @@ class Profile extends Component {
     }
     catch(err) {
       console.log('Error getting documents', err);
-      await this.changeHandler2(err)
+      this.changeHandler2(err)
     }
   }
   
   changeHandler2 (err) {
     this.setState(prevState => {
-      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable jasper
-      userData.error = 'Please Fill In All Fields';                     // update the name property, assign a new value                 
-      return { userData };                                 // return new object jasper object
+      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
+      userData.error = 'Please refresh the app and enter all your information'; // update the name property, assign a new error                 
+      return { userData };                                 // return new object userData object
     })
 }
 
@@ -63,11 +66,51 @@ class Profile extends Component {
       userData["UID"] = event
       this.setState({userData:userData})
 }
+/*
+changeHandler3 () {
+this.setState(prevState => {
+  let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
+  userData.warring = 'Bu bilgi mevcut'; // update the name property, assign a new error                 
+  return { userData }; 
+})
+}
+
+getInfo = async () => {
+  try{
+
+    const user = firebase.auth().currentUser
+      if (user) {         
+        this.changeHandler(user.uid)           
+        postRef= 'Demographic/'+postId
+        let postId= this.state.userData["UID"]
+
+        firebase.database().ref(postRef).on('value', function(snapshot) {
+                      
+          snapshot.forEach(function(snapshot1) {
+              console.log("Second ID:",snapshot1.key)
+              if (snapshot1.key)
+                this.changeHandler3()
+              else{
+
+              }
+               
+          })
+        })
+      }
+    }
+catch(err){
+  console.log(err)
+}
+}
+*/
 
   render() {
-    return (
-      <ScrollView style={styles.container}>
 
+    return (
+      <ImageBackground source={BG} style={styles.container}>
+      <ScrollView>
+        
+        <Text style={styles.errorText}>{this.state.userData.warring}</Text>
         <View style = {styles.inputGroup}>  
         <Text>Age</Text>
             <TextInput
@@ -120,6 +163,7 @@ class Profile extends Component {
         </View>
 
       </ScrollView>
+      </ImageBackground>
     );
   }
 }
