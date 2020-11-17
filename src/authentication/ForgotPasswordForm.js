@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet,ScrollView, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import Logo from './Logo';
 import BG from '../../images/bg3.jpg'
 import firebase from 'firebase'
+
 
 class ForgotPasswordForm extends Component {
         state={
@@ -25,6 +26,7 @@ onBottomPress = () =>{
 
     render(){
         return (
+            <ScrollView>
             <ImageBackground style={styles.container} source= {BG} > 
                 <View>
                     <Logo/>
@@ -49,6 +51,7 @@ onBottomPress = () =>{
                 </Text>
 
             </ImageBackground>
+            </ScrollView>
         );
     }
 };

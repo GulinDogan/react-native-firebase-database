@@ -35,7 +35,7 @@ export default class UserInfo extends Component {
     }
 
     warrInfo (data){
-        if(data == null)
+        if(data == "Anonymous")
         this.setState({
             warr: "Your Profile Information Is Not Available. Please Firstly Enter Your Profile Information"
         })
@@ -50,18 +50,21 @@ export default class UserInfo extends Component {
 
         let user = firebase.auth().currentUser
             console.log(user)
-            firebase.database().ref('Demographic/'+user.uid).on("value", (snapshot)=>{
-            snapshot.forEach((childSnapshot)=>{
-                console.log(childSnapshot)
-                let data = childSnapshot.val();
-                console.log(data)
-                this.warrInfo(data)
-                this.changeUserInfo(data)
+            
+            firebase.database().ref('Demographic/'+user.uid).once('value').then((snapshot)=>{
+  
+                snapshot.forEach((childSnapshot)=>{
 
-            })
+                    let data =  childSnapshot.val()  || 'Anonymous';
+                    console.log("data: ",data)
+                    this.changeUserInfo(data)
+                    this.warrInfo(data)
+               
+                })
         })
 
         .catch((err) => {
+          
             console.log(err)
         })
         
@@ -78,7 +81,7 @@ export default class UserInfo extends Component {
         return (
         <ImageBackground source = {BG} style={styles.container}>
         
-            <Text style = {styles.head}>Welcome {this.state.userData.UserName} </Text>
+            <Text style = {styles.head}>Welcome {this.state.userData["UserName"]} </Text>
         <Text style = {styles.txt}> {this.state.warr}</Text>
         
         </ImageBackground>            

@@ -23,13 +23,14 @@ class SignUpForm extends Component {
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => navigation.navigate('LoginForm'))
+            .then(() => navigation.navigate('DrawerNav'))
             .catch(function(error) {
                 alert(error)
             })
     }
 
     render(){
+        const navigation = this.context;
         return (
             <ImageBackground style={styles.container} source= {BG} > 
                 <View>

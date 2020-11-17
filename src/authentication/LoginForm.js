@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationContext } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, TextInput} from 'react-native';
 import Logo from './Logo';
 import BG from '../../images/bg3.jpg';
 import firebase from 'firebase'
@@ -39,6 +39,7 @@ class LoginForm extends Component {
       render(){
         const navigation = this.context;
         return (
+            <ScrollView>
             <ImageBackground style = {styles.container} source = {BG}>
                 
                 <View style={styles.logoContainer}>
@@ -84,6 +85,7 @@ class LoginForm extends Component {
                     </TouchableOpacity>
 			    </View>
             </ImageBackground>
+            </ScrollView>
         );
     }
 };
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems:'flex-end',
         justifyContent :'center',
-        paddingVertical:16,
+        paddingVertical:30,
         flexDirection:'row'
     }
 
