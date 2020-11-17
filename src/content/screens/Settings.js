@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import {View, TouchableOpacity, Text, StyleSheet, Image, ImageBackground} from 'react-native'
+import { NavigationContext } from '@react-navigation/native';
 import firebase from 'firebase'
 import lock from '../../../images/lock3.png'
 import signOut from '../../../images/door.jpg'
 import BG from '../../../images/bg5.jpg'
 
 export default class Settings extends Component {
+
+    static contextType = NavigationContext;
 
     constructor(props) {
         super(props);
@@ -23,6 +26,7 @@ export default class Settings extends Component {
     }
 
     render() {
+        const navigation = this.context;
         return (
             <ImageBackground source = {BG} style = {styles.container}> 
         
@@ -34,7 +38,7 @@ export default class Settings extends Component {
             </TouchableOpacity>
                
             <TouchableOpacity style = {styles.ButtonContanier}
-                onPress={() => this.props.navigation.navigate("ForgotPasswordForm")}>
+                onPress={() => navigation.navigate("ForgotPassword")}>
                      <Image style = {styles.icon2} source = {lock}/>
                 <Text style = {styles.ButtonText}>New Password</Text>
             </TouchableOpacity>

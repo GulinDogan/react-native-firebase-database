@@ -35,6 +35,7 @@ class LoginForm extends Component {
             loading:false
         })
     }
+
       render(){
         const navigation = this.context;
         return (

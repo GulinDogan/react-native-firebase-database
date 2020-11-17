@@ -12,6 +12,7 @@ class Profile extends Component {
     this.state = {
       userData: {
         UID: "",
+        UserName: "",
         Age: "",
         Sex: "",
         Height: "",
@@ -35,7 +36,7 @@ class Profile extends Component {
       
         DemographicDB = firebase.database().ref("Demographic").child(this.state.userData["UID"])
         DemographicDB.push({
-          
+          UserName: this.state.UserName,
           Age: this.state.Age,
           Sex: this.state.Sex ,
           Height: this.state.Height,
@@ -52,7 +53,7 @@ class Profile extends Component {
       this.changeHandler2(err)
     }
   }
-  
+ 
   changeHandler2 (err) {
     this.setState(prevState => {
       let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
@@ -66,52 +67,24 @@ class Profile extends Component {
       userData["UID"] = event
       this.setState({userData:userData})
 }
-/*
-changeHandler3 () {
-this.setState(prevState => {
-  let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
-  userData.warring = 'Bu bilgi mevcut'; // update the name property, assign a new error                 
-  return { userData }; 
-})
-}
 
-getInfo = async () => {
-  try{
-
-    const user = firebase.auth().currentUser
-      if (user) {         
-        this.changeHandler(user.uid)           
-        postRef= 'Demographic/'+postId
-        let postId= this.state.userData["UID"]
-
-        firebase.database().ref(postRef).on('value', function(snapshot) {
-                      
-          snapshot.forEach(function(snapshot1) {
-              console.log("Second ID:",snapshot1.key)
-              if (snapshot1.key)
-                this.changeHandler3()
-              else{
-
-              }
-               
-          })
-        })
-      }
-    }
-catch(err){
-  console.log(err)
-}
-}
-*/
 
   render() {
 
     return (
-      <ImageBackground source={BG} style={styles.container}>
       <ScrollView>
-        
+      <ImageBackground source={BG} style={styles.container}>
+      
+        <Text>{this.state.userData["warring"]}</Text>
         <Text style={styles.errorText}>{this.state.userData.warring}</Text>
         <View style = {styles.inputGroup}>  
+        <Text>User Name</Text>
+            <TextInput
+              placeholder="User Name" 
+              value={this.state.UserName}
+               onChangeText={UserName => this.setState({UserName})} 
+               />  
+
         <Text>Age</Text>
             <TextInput
               placeholder="Age" 
@@ -126,7 +99,7 @@ catch(err){
                 onChangeText={Sex => this.setState({Sex})}
             />
 
-            <Text>Height</Text>
+            <Text>Height (cm)</Text>
             <TextInput
                placeholder="Height" 
                value={this.state.Height}
@@ -162,8 +135,9 @@ catch(err){
 
         </View>
 
-      </ScrollView>
+      
       </ImageBackground>
+      </ScrollView>
     );
   }
 }
@@ -180,14 +154,8 @@ const styles = StyleSheet.create({
     marginTop:15
 
 },
-  info:{
-    color: 'black',
-    textAlign:'center',
-    fontWeight:'bold',
-    fontSize:16
-  },
   inputGroup: {
-    paddingTop:100,
+    paddingTop:50,
     marginBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',

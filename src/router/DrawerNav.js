@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import TestPage from '../content/screens/TestPage'
 import Profile from '../content/screens/Profile'
 import Settings from '../content/screens/Settings'
+import UserInfo from '../content/screens/UserInfo'
 
 import test from '../../images/test.png'
 import user from '../../images/user.png'
@@ -18,8 +19,8 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
   
-    <Drawer.Navigator initialRouteName = 'Profile'> 
-    
+    <Drawer.Navigator initialRouteName = 'UserInfo'> 
+        <Drawer.Screen name = "User Info" component = {UserInfo}/>
     
         <Drawer.Screen name="Profile" component={Profile} 
         options={{
@@ -27,7 +28,7 @@ function MyDrawer() {
           drawerIcon: ({ focused, size }) => (
               <Image
                 source={user}
-                style={[focused ? color:'#7cc', {marginTop:50, height: 62, width: 40 }]}
+                style={[focused ? color:'#7cc', {marginTop:10, height: 62, width: 40 }]}
               />
            ) }}/>
       <Drawer.Screen name="Experience" component={TestPage}
@@ -36,7 +37,7 @@ function MyDrawer() {
             drawerIcon: ({ focused, size }) => (
                 <Image
                   source={test}
-                  style={[focused ? color:'#7cc', { height: 62, width: 62 }]}
+                  style={[focused ? color:'#7cc', {marginTop:5, height: 62, width: 62 }]}
                 />
               ) }}
               />
@@ -46,7 +47,7 @@ function MyDrawer() {
             drawerIcon: ({ focused, size }) => (
                 <Image
                   source={adjustment}
-                  style={[focused ? color:'#7cc', { height: 62, width: 60 }]}
+                  style={[focused ? color:'#7cc', {marginTop:5, height: 62, width: 60 }]}
                 />
               ) }}
               />
