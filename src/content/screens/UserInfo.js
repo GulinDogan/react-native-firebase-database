@@ -46,7 +46,7 @@ export default class UserInfo extends Component {
         }
     }
 
-    Myfunc = async () => {
+    myfunc = async () => {
 
         let user = firebase.auth().currentUser
             console.log(user)
@@ -73,7 +73,7 @@ export default class UserInfo extends Component {
 
 
     componentDidMount (){
-        this.Myfunc()
+        this.myfunc()
     }
  
 

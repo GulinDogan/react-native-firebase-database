@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import { NavigationContext } from '@react-navigation/native';
 import { AsyncStorage } from '@react-native-community/async-storage'
 import { RNCamera } from 'react-native-camera';
 import IconLib1 from "react-native-vector-icons/FontAwesome";
@@ -7,6 +8,8 @@ import IconLib1 from "react-native-vector-icons/FontAwesome";
 import firebase from 'firebase'
 
 export default class Photo extends Component {
+
+  static contextType = NavigationContext;
 
   constructor(props) {
     super(props);
@@ -49,6 +52,7 @@ export default class Photo extends Component {
     sharePicture = async () => {
 
       try {
+         const navigation = this.context;
           // Create the file metadata
           var metadata = {
           contentType: 'image'
@@ -61,7 +65,7 @@ export default class Photo extends Component {
           const response = await fetch(this.state.url);
           const blob = await response.blob();
 
-          const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("Voice"))
+          const task = storageRef.put(blob, metadata).then(() => navigation.navigate("Voice"))
         }   
       
       catch (err) {

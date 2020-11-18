@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid} from 'react-native'
+import { NavigationContext } from '@react-navigation/native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import firebase from 'firebase'
 
 export default class Voice extends Component {
+
+  static contextType = NavigationContext;
 
     constructor(props) {
             super(props);
@@ -14,7 +17,8 @@ export default class Voice extends Component {
                 url: '',
                 isLoggingIn: false,
                 recordSecs: 0,
-                recordTime: '00:00:00'
+                recordTime: '00:00:00',
+                loggedIn: false
             }   
         };
 
@@ -88,7 +92,7 @@ export default class Voice extends Component {
 
             shareRecord = async () => {
                 try{
-        
+                  const navigation = this.context;
                     var str = this.state.url
                     var name = str.substring(15, 24);
                     // Create the file metadata
@@ -99,12 +103,13 @@ export default class Voice extends Component {
                     console.log("Name: "+name)
            
                     // Create a root reference
-                    var storageRef = await firebase.storage().ref().child("gs//:" +name)
+                    var storageRef = await firebase.storage().ref().child("Voice/" +name)
 
                     console.log(this.state.url)
                     const response = await fetch(this.state.url);
                     const blob = await response.blob();
-                    const task = storageRef.put(blob, metadata).then(() => this.props.navigation.navigate("SucsessPage"))
+                    const task = storageRef.put(blob, metadata)
+                    .then(() => navigation.navigate('SucsessPage'))
 
                 }
                 catch(err){
@@ -115,6 +120,7 @@ export default class Voice extends Component {
         
 
     render() {
+      
         return (
 
             <View style={styles.container}>

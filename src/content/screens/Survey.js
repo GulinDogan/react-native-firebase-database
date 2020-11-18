@@ -1,77 +1,79 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground} from 'react-native'
 import BG from '../../../images/bg5.jpg'
+import { NavigationContext } from '@react-navigation/native';
 import { AsyncStorage } from '@react-native-community/async-storage'
 import firebase from 'firebase'
 
 class Survey extends Component {
-  
+  static contextType = NavigationContext;
+
   constructor(props) {
+    
     super(props);
     this.state = {
-      userData: {
-        UID: "",
-        Age: "",
-        Sex: "",
-        Height: "",
-        Weight: "",
-        Job: "",
-        error: ""
-      }
-    }
+      A1: "",
+      A2: "",
+      A3: "",
+      A4: "",
+      A5: "",
+      A6: "",
+      A7: "",
+      DateTime: ""
+
     };
+    }
+
+
+    setTime (){
+        // Create date object from datetime string
+      var date = new Date();
+      
+      // Coverting to local datetime 
+      console.log(date.toString());
+      
+
+      this.setState({
+        DateTime: date.toString()
+      })
+    }
+
+  addStore = async () => {
     
-    addStore = async () => {
     try{    
+      const navigation = this.context;
+
       const user = firebase.auth().currentUser
       if (user) {
-        console.log('User uid: ', user.uid)
-        await this.changeHandler(user.uid)
-        console.log("This state uid: ", this.state.userData["UID"])
-      
-        DemographicDB = firebase.database().ref("Survey").child(this.state.userData.UID)
-        DemographicDB.push({
-          
-          A1: this.state.userData.A1,
-          A2: this.state.userData.A2,
-          A3: this.state.userData.A3,
-          A4: this.state.userData.A4,
-          A5: this.state.userData.A5,
-          A6: this.state.userData.A6,
-          A7: this.state.userData.A7
-          
+        await this.setTime()
+        let db = await firebase.database().ref("Survey/"+user.uid) 
+        console.log("Db: ", db)
+        
+        db.push({
+          A1: this.state.A1,
+          A2: this.state.A2,
+          A3: this.state.A3,
+          A4: this.state.A4,
+          A5: this.state.A5,
+          A6: this.state.A6,
+          A7: this.state.A7,
+          DateTime: this.state.DateTime
         }) 
-        alert("The survey has been successfully saved")
-
+        navigation.navigate('Photo')
       }
     }
     catch(err) {
       console.log('Error getting documents', err);
-      this.changeHandler2(err)
-
     }
+  
   }
 
-  changeHandler2 (err) {
-    this.setState(prevState => {
-      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable jasper
-      userData.error = 'Please refresh the app and enter all your information'; // update the name property, assign a new error                 
-      return { userData };                                 // return new object jasper object
-    })
-}
-  
-  changeHandler (event) {
-      userData = this.state.userData
-      userData["UID"] = event
-      this.setState({userData:userData})
-}
 
   render() {
     return (
       <ScrollView>
-      <ImageBackground source={BG} style={styles.container}>
-      
-        <View>
+        <ImageBackground style={styles.container} source = {BG}>
+        <View style = {styles.inputGroup}>
         
         <Text>1. What are you doing now? (Rest, work or study, hygiene, eating / drinking, leisure, other)</Text>
             <TextInput
@@ -123,22 +125,17 @@ class Survey extends Component {
                value={this.state.A7}
                onChangeText={ A7 => this.setState({A7})}
             />
-            
-            <Text style={styles.errorText} >
-                    {this.state.userData.error}
-            </Text>
         
             <TouchableOpacity style={ styles.buttonContainer }
             onPress={() => this.addStore()}
             title="Submit">
                 <Text style= {styles.buttonText}>
-                  Submit
-                </Text>
+                Submit
+            </Text>
             </TouchableOpacity>
 
         </View>
-      
-      </ImageBackground>
+        </ImageBackground>
       </ScrollView>
     );
   }
@@ -146,29 +143,17 @@ class Survey extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 35
+    paddingTop:20
+
   },
   inputGroup: {
-    flex: 1,
-    padding: 0,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center'
+    padding:20,
+
   },
   buttonContainer:{
     backgroundColor:'#3B3B98',
-    padding:8,
-    marginBottom:45,
+    padding:10,
+    marginBottom:20,
     marginLeft:20,
     marginRight:20,
     borderRadius:10,
@@ -180,12 +165,6 @@ buttonText:{
     fontWeight:'bold',
     fontSize:20
 
-},    
-errorText:{
-  fontSize:16,
-  color:'red',
-  alignSelf:'center',
-  marginTop:15
 }
 })
 

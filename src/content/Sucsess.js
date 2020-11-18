@@ -1,31 +1,41 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Image } from 'react-native';
+import { View, Text, StyleSheet,Image} from 'react-native';
+import { NavigationContext } from '@react-navigation/native';
 import sucessImage from '../../images/okey.png'
 import firebase from 'firebase'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class Sucsess extends Component {
+
+    static contextType = NavigationContext;
 
     constructor(props){
         super(props)
         this.state = {
             name: '',
             password:'',
-            loggedIn: null,
+            loggedIn: ""
           }
     }
 
-    render() {
-        return (
-          <View>
-            <TouchableOpacity style = {styles.QuestionContainer}
-            onPress = { () => firebase.auth().signOut().then(this.setState.loggedIn = false)}>
-                <Text style = {styles.QuestionText}>Are you sure you want to finish ? </Text>
-            </TouchableOpacity>
-            <View style = {styles.logoContainer}>
-                <Image source = {sucessImage} style = {styles.sucessImage} />
+    setTimePassed = ()  =>{
+            firebase.auth().signOut().then(this.setState.loggedIn = false) 
+    }
 
-            </View> 
+    render() {
+        const navigation = this.context;
+        this.setTimePassed()
+        return (
+
+            <View>
+
+                <View style = {styles.logoContainer}>
+                    <Image source = {sucessImage} style = {styles.sucessImage} />
+                </View> 
+                
+                <View style = {styles.textontainer}>
+                    <Text style = {styles.txt}>Mission Complited</Text>
+                </View>
+
             </View>
         )
     }
@@ -39,25 +49,18 @@ const styles = StyleSheet.create({
     },
     logoContainer:{
         alignItems: 'center',
-        paddingTop: 100
+        paddingTop: 200,
     },
      sucessImage:{
         width: 300,
         height: 250, 
     },
-    QuestionText:{
-        color:'white',
+    txt:{ 
         fontSize: 18,
         textAlign: 'center',
     },
-    QuestionContainer:{
-        backgroundColor: '#3B3B98',
-        marginTop:100,
-        marginLeft: 20,
-        marginRight: 20,
-        padding:20,
-        borderRadius: 30,
-      
+    textontainer:{
+        paddingTop:50
     }
 })
 

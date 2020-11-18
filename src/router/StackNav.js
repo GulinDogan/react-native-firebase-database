@@ -19,8 +19,8 @@ function Start () {
     return (
       <NavigationContainer onStateChange={state => console.log('New state is', state)} >
          <Stack.Navigator initialRouteName="FirebaseConfig" headerMode="none" >
-         <Stack.Screen name="Experience Sampling Authentication" component={FirebaseConfig} />
-          <Stack.Screen name="DrawerNav" component={DrawerNav}/>
+         <Stack.Screen name = "Experience Sampling Authentication" component={FirebaseConfig} />
+          <Stack.Screen name = "DrawerNav" component={DrawerNav}/>
           <Stack.Screen name = "TestPage" component = {TestPage} />
           <Stack.Screen name = "Settings" component = {Settings}/> 
           <Stack.Screen name = " LoginForm" component = {LoginForm}/>

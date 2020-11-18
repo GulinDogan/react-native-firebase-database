@@ -26,8 +26,8 @@ onBottomPress = () =>{
 
     render(){
         return (
-            <ScrollView>
             <ImageBackground style={styles.container} source= {BG} > 
+            
                 <View>
                     <Logo/>
                 </View>
@@ -50,8 +50,9 @@ onBottomPress = () =>{
                     {this.state.error}
                 </Text>
 
+            
+            
             </ImageBackground>
-            </ScrollView>
         );
     }
 };
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
     header: {
         fontSize:16,
         alignSelf:'center',
-        marginTop:15,
-        marginBottom:15,
+        marginTop:5,
+        marginBottom:5,
         fontWeight:'bold'
     },
     input:{
@@ -74,12 +75,11 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(255,255,255,.5)',
         paddingLeft:10,
         marginBottom:15,
+        marginTop:10,
         borderRadius:5,
-        fontSize:15,
-    
     },
     errorText:{
-        fontSize:16,
+        fontSize:14,
         color:'red',
         alignSelf:'center',
         marginTop:15
@@ -93,14 +93,24 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         backgroundColor:'#3B3B98',
-        padding:10,
+        padding:8,
         borderRadius:8,
-        height:40,
-     
-    
-
+        height:40
+    },
+    forgotContainer : {
+        left: 190,
+        flexDirection:'row'
+    },
+    signupText: {
+        fontSize:16
+    }, 
+    signupTextCont : {
+        flexGrow: 1,
+        alignItems:'flex-end',
+        justifyContent :'center',
+        paddingVertical:30,
+        flexDirection:'row'
     }
-    
-});
+})
 
 export default ForgotPasswordForm;
