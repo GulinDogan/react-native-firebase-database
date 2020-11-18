@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground, TouchableHighlightBase} from 'react-native'
 import BG from '../../../images/bg5.jpg'
-import { AsyncStorage } from '@react-native-community/async-storage'
 import firebase from 'firebase'
 
 
@@ -11,15 +10,13 @@ class Profile extends Component {
     super(props);
     this.state = {
       userData: {
-        UID: "",
         UserName: "",
         Age: "",
         Sex: "",
         Height: "",
         Weight: "",
         Job: "",
-        error: "",
-        warring: ""
+        error: ""
       },
     }
     };
@@ -31,10 +28,8 @@ class Profile extends Component {
       const user = firebase.auth().currentUser
       if (user) {
         console.log('User uid: ', user.uid)
-        await this.changeHandler(user.uid)
-        console.log("This state uid: ", this.state.userData["UID"])
       
-        DemographicDB = firebase.database().ref("Demographic").child(this.state.userData["UID"])
+        DemographicDB = firebase.database().ref("Demographic").child(user.uid)
         DemographicDB.push({
           UserName: this.state.UserName,
           Age: this.state.Age,
@@ -45,37 +40,39 @@ class Profile extends Component {
           
         }) 
         alert("The survey has been successfully saved")
-
+        this.getErr("")
       }
     }
     catch(err) {
       console.log('Error getting documents', err);
-      this.changeHandler2(err)
+      this.getErr(err)
     }
   }
- 
-  changeHandler2 (err) {
-    this.setState(prevState => {
-      let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
-      userData.error = 'Please refresh the app and enter all your information'; // update the name property, assign a new error                 
-      return { userData };                                 // return new object userData object
-    })
-}
 
-  changeHandler (event) {
-      userData = this.state.userData
-      userData["UID"] = event
-      this.setState({userData:userData})
-}
+  getErr(err){
+    if(err){
+      this.setState(prevState => {
+        let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
+        userData.error = 'Please enter all your information'; // update the name property, assign a new error                 
+        return { userData };                                 // return new object userData object
+      })
+    }
+    else{
+      this.setState(prevState => {
+        let userData = Object.assign({}, prevState.userData);  // creating copy of state variable userData
+        userData.error = ''; // update the name property, assign a new error                 
+        return { userData };                                 // return new object userData object
+      })
+    }
 
+  }
 
   render() {
 
     return (
       <ScrollView>
-      <ImageBackground source={BG} style={styles.container}>
-      
-        <Text>{this.state.userData["warring"]}</Text>
+        <ImageBackground source={BG} style={styles.container}>
+    
         <Text style={styles.errorText}>{this.state.userData.warring}</Text>
         <View style = {styles.inputGroup}>  
         <Text>User Name</Text>
@@ -152,7 +149,6 @@ const styles = StyleSheet.create({
     color:'red',
     alignSelf:'center',
     marginTop:15
-
 },
   inputGroup: {
     paddingTop:50,

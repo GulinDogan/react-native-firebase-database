@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {View, StyleSheet, ImageBackground, Text} from 'react-native'
 import firebase from 'firebase'
 import BG from '../../../images/bg5.jpg'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 export default class UserInfo extends Component {
 
     constructor(props){
@@ -80,7 +82,11 @@ export default class UserInfo extends Component {
     render() {
         return (
         <ImageBackground source = {BG} style={styles.container}>
-        
+
+        <View style = {styles.iconContainer}>
+            <Icon name="hand-o-right" color="black" size={30} />                    
+        </View>
+      
             <Text style = {styles.head}>Welcome {this.state.userData["UserName"]} </Text>
         <Text style = {styles.txt}> {this.state.warr}</Text>
         

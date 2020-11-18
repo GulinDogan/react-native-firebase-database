@@ -93,17 +93,16 @@ export default class Voice extends Component {
             shareRecord = async () => {
                 try{
                   const navigation = this.context;
-                    var str = this.state.url
-                    var name = str.substring(15, 24);
+                  
                     // Create the file metadata
                     var metadata = {
                         contentType: 'audio/mp4' 
                     };
-                    console.log("Str: "+str)
-                    console.log("Name: "+name)
-           
+                    var res = this.creatName()
+                    console.log("res: "+res)
+              
                     // Create a root reference
-                    var storageRef = await firebase.storage().ref().child("Voice/" +name)
+                    var storageRef = await firebase.storage().ref().child("Voice/" +res)
 
                     console.log(this.state.url)
                     const response = await fetch(this.state.url);
@@ -116,7 +115,17 @@ export default class Voice extends Component {
                     console.log(err)
                 }                
         }
-    
+
+    creatName(){
+
+      var result = 'sound-';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < 10 ; i++ ) {
+         result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
         
 
     render() {

@@ -33,7 +33,7 @@ class Sucsess extends Component {
                 </View> 
                 
                 <View style = {styles.textontainer}>
-                    <Text style = {styles.txt}>Mission Complited</Text>
+                    <Text style = {styles.txt}>Mission Completed</Text>
                 </View>
 
             </View>
