@@ -32,8 +32,8 @@ class Sucsess extends Component {
                     <Image source = {sucessImage} style = {styles.sucessImage} />
                 </View> 
                 
-                <View style = {styles.textontainer}>
-                    <Text style = {styles.txt}>Mission Completed</Text>
+                <View style = {styles.textContainer}>
+                    <Text style = {styles.logoText}>Mission Completed</Text>
                 </View>
 
             </View>
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
         width: 300,
         height: 250, 
     },
-    txt:{ 
-        fontSize: 18,
-        textAlign: 'center',
+    logoText: {
+        color:'black',
+        fontSize: 30, 
+        marginTop: 10,
+        opacity:0.5    
     },
-    textontainer:{
+    textContainer:{
         paddingTop:50
     }
 })

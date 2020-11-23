@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, PermissionsAndroid, ImageBackground} from 'react-native'
 import { NavigationContext } from '@react-navigation/native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import firebase from 'firebase'
+
+import voiceBg from '../../../images/voiceBg.jpg'
 
 export default class Voice extends Component {
 
@@ -131,11 +133,11 @@ export default class Voice extends Component {
     render() {
       
         return (
-
-            <View style={styles.container}>
+            <ImageBackground source = {voiceBg} style={styles.container}>   
+            <View>
                 
                 <TouchableOpacity style= {styles.share} onPress = {() => this.shareRecord()}>
-                    <Icon name="share-alt" color="#ccc" size={30} />
+                    <Icon name="share-alt" color="#fff" size={30} />
                 </TouchableOpacity>
 
                 <View style={styles.QuestionContainer}>
@@ -147,16 +149,17 @@ export default class Voice extends Component {
                 <View style = {styles.audioContainer}>
                 
                     <TouchableOpacity style= {styles.play} onPress = {() => this.onStartRecord()}>
-                        <Icon name="play" color="#ccc" size={40} />
+                        <Icon name="play" color="#fff" size={40} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style= {styles.stop} onPress = {() => this.onStopRecord()}>
-                        <Icon name="stop" color="#ccc" size={40} />
+                        <Icon name="stop" color="#fff" size={40} />
                     </TouchableOpacity>
 
                 
                 </View>
            </View>
+           </ImageBackground>
         )
     }
 }
@@ -168,18 +171,18 @@ const styles = StyleSheet.create({
       
     },
     QuestionContainer:{
-        marginTop:100,
-        paddingTop: 50,
+        paddingTop: 380,
         alignItems: 'center',
-        borderRadius: 30,
-        backgroundColor: '#ccc'
+    
     },
     QuestionText:{
         fontSize: 20,
+        color:'#fff',
         fontWeight: 'bold'
+        
     },
     audioContainer: {
-        marginTop: 150,
+      
         flexDirection: 'row',
         paddingHorizontal:70
     },
@@ -191,7 +194,9 @@ const styles = StyleSheet.create({
         marginHorizontal:30
     },
     time:{
-        padding:50
+        paddingTop:10,
+        paddingBottom:50,
+        color: '#fff'
     },
     share:{
         alignItems:'flex-start',
