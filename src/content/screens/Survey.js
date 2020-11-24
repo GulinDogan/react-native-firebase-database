@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground} from 'react-native'
-import BG from '../../../images/bg5.jpg'
 import { NavigationContext } from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
-
 import firebase from 'firebase'
+
+import BG from '../../../images/bg5.jpg'
 
 class Survey extends Component {
   static contextType = NavigationContext;
@@ -13,13 +13,13 @@ class Survey extends Component {
     
     super(props);
     this.state = {
-      A1: "Work",
-      A2: "Cheerful",
-      A3: "Partner",
-      A4: "Yes",
-      A5: "Yes",
+      A1: "",
+      A2: "",
+      A3: "",
+      A4: "",
+      A5: "",
       A6: "",
-      A7: "Yes",
+      A7: "",
       DateTime: ""
 
     };
@@ -71,30 +71,37 @@ class Survey extends Component {
 
 
   render() {
+      
     return (
+
       <ScrollView>
         <ImageBackground style={styles.container} source = {BG}>
         <View style = {styles.inputGroup}>
-        
+
         <Text>1. What are you doing now? </Text>
         <RNPickerSelect 
-                  
+                  placeholder = {{ 
+                    label: this.state.A1,
+                }}  
                   value={this.state.A1}
                   onValueChange={A1 => this.setState({A1})}
                   items={[
-                      { label: 'Work', value: 'Work' },
-                      { label: 'Study', value: 'Study' },
-                      { label: 'Cook', value: 'Cook' },
-                      { label: 'Rest', value: 'Rest' },
-                      { label: 'Hygiene', value: 'Hygiene' },
-                      { label: 'Eating / Drinking', value: 'Eating / Drinking' },
-                      { label: 'Leisure', value: 'Leisureg' },
-                      { label: 'Cther', value: 'Cther' },
+                    { label: "Work", value: "Work" },
+                    { label: "Study", value: "Study" },
+                    { label: "Cook", value: "Cook" },
+                    { label: "Rest", value: "Rest" },
+                    { label: "Hygiene", value: "Hygiene" },
+                    { label: "Eating / Drinking", value: "Eating / Drinking" },
+                    { label: "Leisure", value: "Leisureg" },
+                    { label: "Other", value: "Other" }
                   ]}
               />
 
             <Text>2. How are you feeling right now and score between 1-10? </Text>
               <RNPickerSelect 
+                    placeholder = {{ 
+                      label: this.state.A2,
+                  }}
                   value={this.state.A2}
                   onValueChange={A2 => this.setState({A2})}
                   items={[
@@ -118,6 +125,9 @@ class Survey extends Component {
 
             <Text>3. Who is with you right now? How do you feel about him? </Text>
               <RNPickerSelect 
+                    placeholder = {{ 
+                      label: this.state.A3,
+                  }}
                   value={this.state.A3}
                   onValueChange={A3 => this.setState({A3})}
                   items={[
@@ -136,6 +146,9 @@ class Survey extends Component {
 
             <Text>4. Is there any event or person in your work environment that currently disturbs you? </Text>
             <RNPickerSelect 
+                    placeholder = {{ 
+                      label: this.state.A1,
+                  }}
                   value={this.state.A4}
                   onValueChange={A4 => this.setState({A4})}
                   items={[
@@ -148,6 +161,9 @@ class Survey extends Component {
             
             <Text>5. Would you like to be somewhere else now?</Text>
             <RNPickerSelect 
+                    placeholder = {{ 
+                      label: this.state.A5,
+                  }}
                   value={this.state.A5}
                   onValueChange={A5 => this.setState({A5})}
                   items={[
@@ -160,13 +176,16 @@ class Survey extends Component {
             
             <Text>6. What was the most important event that happened after writing your last experience?</Text>
             <TextInput
-               placeholder="Answer 6" 
+               //placeholder="Answer 6" 
                value={this.state.A6}
                onChangeText={ A6 => this.setState({A6})}
             />
             
             <Text >7. Are you feeling energetic to do another job today?</Text>
             <RNPickerSelect 
+                    placeholder = {{ 
+                      label: this.state.A7,
+                  }}
                   value={this.state.A7}
                   onValueChange={A7 => this.setState({A7})}
                   items={[
@@ -217,6 +236,7 @@ buttonText:{
     fontSize:20
 
 }
+
 })
 
 

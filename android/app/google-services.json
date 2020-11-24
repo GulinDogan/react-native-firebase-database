@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:822571808990:android:9b9313a651717768baaa4f",
+        "mobilesdk_app_id": "1:822571808990:android:182526cfbabb7aadbaaa4f",
         "android_client_info": {
-          "package_name": "com.dogan.experience"
+          "package_name": "com.experiencesampling"
         }
       },
       "oauth_client": [

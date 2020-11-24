@@ -3,7 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageB
 import BG from '../../../images/bg5.jpg'
 import firebase from 'firebase'
 
-
 class Profile extends Component {
   
   constructor(props) {

@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
 
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -188,6 +188,8 @@ android {
 }
 
 dependencies {
+    //implementation project(':react-native-push-notification')
+    
     implementation project(':react-native-audio-recorder-player')
 
     implementation 'com.android.support:multidex:2.0.1'

@@ -15,7 +15,6 @@ import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator();
 
-
 function MyDrawer() {
   return (
   
