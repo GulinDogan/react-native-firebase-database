@@ -18,6 +18,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.reactnativecommunity.picker.RNCPickerPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package
 
 public class MainApplication extends Application implements ReactApplication {

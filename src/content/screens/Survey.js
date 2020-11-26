@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground} from 'react-native'
 import { NavigationContext } from '@react-navigation/native';
-import RNPickerSelect from 'react-native-picker-select';
+import {Picker} from '@react-native-picker/picker';
 import firebase from 'firebase'
-
 import BG from '../../../images/bg5.jpg'
+
 
 class Survey extends Component {
   static contextType = NavigationContext;
@@ -20,9 +20,9 @@ class Survey extends Component {
       A5: "",
       A6: "",
       A7: "",
-      DateTime: ""
-
-    };
+      DateTime: "",
+      error: ""
+    }
     }
 
 
@@ -65,137 +65,155 @@ class Survey extends Component {
     }
     catch(err) {
       console.log('Error getting documents', err);
+      await this.getErr(err)
+      
     }
   
   }
 
+  getErr(err){
+    this.setState({
+      error: 'Please enter all your information'
+    })
+  }
 
   render() {
-      
+    const placeholder = {
+      label: 'Select a item...',
+      value: null,
+      color: 'black',
+    };
     return (
 
       <ScrollView>
         <ImageBackground style={styles.container} source = {BG}>
-        <View style = {styles.inputGroup}>
+        <View >
 
-        <Text>1. What are you doing now? </Text>
-        <RNPickerSelect 
-                  placeholder = {{ 
-                    label: this.state.A1,
-                }}  
-                  value={this.state.A1}
-                  onValueChange={A1 => this.setState({A1})}
-                  items={[
-                    { label: "Work", value: "Work" },
-                    { label: "Study", value: "Study" },
-                    { label: "Cook", value: "Cook" },
-                    { label: "Rest", value: "Rest" },
-                    { label: "Hygiene", value: "Hygiene" },
-                    { label: "Eating / Drinking", value: "Eating / Drinking" },
-                    { label: "Leisure", value: "Leisureg" },
-                    { label: "Other", value: "Other" }
-                  ]}
-              />
+        <Text style = {styles.txt}>1. What are you doing now? </Text>
 
-            <Text>2. How are you feeling right now and score between 1-10? </Text>
-              <RNPickerSelect 
-                    placeholder = {{ 
-                      label: this.state.A2,
-                  }}
-                  value={this.state.A2}
-                  onValueChange={A2 => this.setState({A2})}
-                  items={[
-                      { label: 'Cheerful', value: 'Cheerful' },
-                      { label: 'Insecure', value: 'Insecure' },
-                      { label: 'Relaxed', value: 'Relaxed' },
-                      { label: 'Annoyed', value: 'Annoyed' },
-                      { label: 'Satisfied', value: 'Satisfied' },
-                      { label: 'Lonely', value: 'Lonely' },
-                      { label: 'Worried', value: 'Worried' },
-                      { label: 'Guilty', value: 'Guilty' },
-                      { label: 'Angry', value: 'Angry' },
-                      { label: 'Happy', value: 'Happy' },
-                      { label: 'Unhappy', value: 'Unhappy' },
-                      { label: 'Neutral', value: 'Neutral' },
-                      { label: 'Sad', value: 'Sad' },
-                      { label: 'Scared', value: 'Scared' },
-                      { label: 'Other', value: 'Other' },
-                  ]}
-              />
+        <Picker 
+            selectedValue={this.state.A1}
+            style={{fontSize:14, height: 50, width: 320}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({A1: itemValue})
+          }>
+          <Picker.Item label = "Select a item..." value = "Select a item..." />
+          <Picker.Item label = "Work" value = "Work" />
+          <Picker.Item label = "Study" value = "Study" />
+          <Picker.Item label= "Cook" value = "Cook" />
+          <Picker.Item label= "Rest" value = "Rest" />
+          <Picker.Item label= "Hygiene" value = "Hygiene" />
+          <Picker.Item label =  "Eating / Drinking" value = "Eating / Drinking" />
+          <Picker.Item label = "Leisure" value = "Leisureg" />
+          <Picker.Item  label = "Other" value= "Other" />
+        </Picker>
 
-            <Text>3. Who is with you right now? How do you feel about him? </Text>
-              <RNPickerSelect 
-                    placeholder = {{ 
-                      label: this.state.A3,
-                  }}
-                  value={this.state.A3}
-                  onValueChange={A3 => this.setState({A3})}
-                  items={[
-                      { label: 'Partner', value: 'Partner' },
-                      { label: 'Manager', value: 'Manager' },
-                      { label: 'Company owner', value: 'Company owner' },
-                      { label: 'Family member', value: 'Family member' },
-                      { label: 'Friend (s)', value: 'Friend (s)' },
-                      { label: 'Colleague (s)', value: 'Colleague (s)' },
-                      { label: 'Acquaintance (s)', value: 'Acquaintance (s)' },
-                      { label: 'Stranger (s) / others', value: 'Stranger (s) / others' },
-                      { label: 'No one', value: 'No one' },
-                      
-                  ]}
-              />
+            <Text style = {styles.txt}>2. How are you feeling right now and score between 1-10? </Text>
+              
+            <Picker 
+           
+            selectedValue={this.state.A2}
+            style={{ fontSize:14, height: 50, width: 320}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({A2: itemValue})
+          }>
+          <Picker.Item label = "Select a item..." value = "Select a item..." />
+          <Picker.Item label = "Cheerful" value = "Cheerful" />
+          <Picker.Item label = "Relaxed" value = "Relaxed" />
+          <Picker.Item label= "Annoyed" value = "Annoyed" />
+          <Picker.Item label= "Satisfied" value = "Satisfied" />
+          <Picker.Item label= "Lonely" value = "Lonely" />
+          <Picker.Item label =  "Worried" value = "Worried" />
+          <Picker.Item label = "Guilty" value = "Guilty" />
+          <Picker.Item  label = "Angry" value= "Angry" />
+          <Picker.Item label= "Happy" value = "Happy" />
+          <Picker.Item label =  "Unhappy" value = "Unhappy" />
+          <Picker.Item label = "Neutral" value = "Neutral" />
+          <Picker.Item  label = "Sad" value= "Sad" />
+          <Picker.Item label = "Scared" value = "Scared" />
+          <Picker.Item  label = "Other" value= "Other" />
+        </Picker>
+         
 
-            <Text>4. Is there any event or person in your work environment that currently disturbs you? </Text>
-            <RNPickerSelect 
-                    placeholder = {{ 
-                      label: this.state.A1,
-                  }}
-                  value={this.state.A4}
-                  onValueChange={A4 => this.setState({A4})}
-                  items={[
-                      { label: 'Yes', value: 'Yes' },
-                      { label: 'No', value: 'No' },
-                      { label: "I don't know", value: "I don't know" },
-                     
-                  ]}
-              />
+            <Text style = {styles.txt}>3. Who is with you right now? How do you feel about him? </Text>
+            <Picker 
+                
+                selectedValue={this.state.A3}
+                style={{fontSize:14, height: 50, width: 320}}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({A3: itemValue})
+              }>
+              <Picker.Item label = "Select a item..." value = "Select a item..." />
+              <Picker.Item label = "Partner" value = "Partner" />
+              <Picker.Item label = "Manager" value = "Manager" />
+              <Picker.Item label= "Company owner" value = "Company owner" />
+              <Picker.Item label= "Family membe" value = "Family membe" />
+              <Picker.Item label= "Friend" value = "Friend" />
+              <Picker.Item label =  "Colleague" value = "Colleague" />
+              <Picker.Item label = "Acquaintance" value = "Acquaintance" />
+              <Picker.Item  label = "Stranger" value= "Stranger" />
+              <Picker.Item label= "No one" value = "No one" />
             
-            <Text>5. Would you like to be somewhere else now?</Text>
-            <RNPickerSelect 
-                    placeholder = {{ 
-                      label: this.state.A5,
-                  }}
-                  value={this.state.A5}
-                  onValueChange={A5 => this.setState({A5})}
-                  items={[
-                      { label: 'Yes', value: 'Yes' },
-                      { label: 'No', value: 'No' },
-                      { label: "I don't know", value: "I don't know" },
-                     
-                  ]}
-              />
+            </Picker>
+                 
+            <Text style = {styles.txt}>4. Is there any event or person in your work environment that currently disturbs you? </Text>
+            <Picker 
+              
+                selectedValue={this.state.A4}
+                style={{fontSize:14, height: 50, width: 320}}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({A4: itemValue})
+              }>
+              <Picker.Item label = "Select a item..." value = "Select a item..." />
+              <Picker.Item label = "Yes" value = "Yes" />
+              <Picker.Item label = "No" value = "No" />
+              <Picker.Item label= "I don't know" value = "I don't know" />
+      
+            </Picker>
+      
             
-            <Text>6. What was the most important event that happened after writing your last experience?</Text>
+            <Text style = {styles.txt}>5. Would you like to be somewhere else now?</Text>
+            <Picker 
+                
+                selectedValue={this.state.A5}
+                style={{fontSize:14, height: 50, width: 320}}
+                onValueChange={(itemValue, itemInde) =>
+                  this.setState({A5: itemValue})
+              }>
+              <Picker.Item label = "Select a item..." value = "Select a item..." />
+              <Picker.Item label = "Yes" value = "Yes" />
+              <Picker.Item label = "No" value = "No" />
+              <Picker.Item label= "I don't know" value = "I don't know" />
+      
+            </Picker>
+            
+            <Text style = {styles.txt}>6. What was the most important event that happened after writing your last experience?</Text>
             <TextInput
-               //placeholder="Answer 6" 
+            
+               placeholder="Answer 6" 
                value={this.state.A6}
                onChangeText={ A6 => this.setState({A6})}
             />
             
-            <Text >7. Are you feeling energetic to do another job today?</Text>
-            <RNPickerSelect 
-                    placeholder = {{ 
-                      label: this.state.A7,
-                  }}
-                  value={this.state.A7}
-                  onValueChange={A7 => this.setState({A7})}
-                  items={[
-                      { label: 'Yes', value: 'Yes' },
-                      { label: 'No', value: 'No' },
-                      { label: "I don't know", value: "I don't know" },
-                     
-                  ]}
-              />
+            <Text style = {styles.txt}>7. Are you feeling energetic to do another job today?</Text>
+            <Picker 
+                
+                selectedValue={this.state.A7}
+                style={{fontSize:14, height: 50, width: 320}}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({A7: itemValue})
+              }>
+              <Picker.Item label = "Select a item..." value = "Select a item..." />
+              <Picker.Item label = "Yes" value = "Yes" />
+              <Picker.Item label = "No" value = "No" />
+              <Picker.Item label= "I don't know" value = "I don't know" />
+      
+            </Picker>
         
+            <Text style={styles.errorText} >
+                    {this.state.error}
+            </Text>
+
             <TouchableOpacity style={ styles.buttonContainer }
             onPress={() => this.addStore()}
             title="Submit">
@@ -213,19 +231,11 @@ class Survey extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop:20
-
-  },
-  inputGroup: {
-    padding:20,
-
+    padding:20
   },
   buttonContainer:{
     backgroundColor:'#3B3B98',
     padding:10,
-    marginBottom:20,
-    marginLeft:20,
-    marginRight:20,
     borderRadius:10,
     
 },
@@ -233,10 +243,19 @@ buttonText:{
     textAlign:'center',
     color:'#fff',
     fontWeight:'bold',
-    fontSize:20
+    fontSize:18
 
+},
+errorText:{
+  color: "red",
+  textAlign: "center",
+  fontSize:16,
+  marginBottom:10
+},
+txt:{
+  paddingTop:10,
+  fontSize:16
 }
-
 })
 
 

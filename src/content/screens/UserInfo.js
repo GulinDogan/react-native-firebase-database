@@ -23,7 +23,7 @@ export default class UserInfo extends Component {
     }
 
 
-    changeUserInfo (data){
+    changeUserInfo = (data) =>{
         
         userData = this.state.userData
         userData["UserName"] = data.UserName
@@ -36,14 +36,15 @@ export default class UserInfo extends Component {
 
     }
 
-    warrInfo (data){
-        if(data == "Anonymous")
-        this.setState({
-            warr: "Your Profile Information Is Not Available. Please Firstly Enter Your Profile Information"
+    warrInfo = (data)=>{
+        if(data ==  'Anonymous')
+            this.setState({
+                
+                warr: "Your Profile Information Is Not Available. Please Firstly Enter Your Profile Information"
         })
         else{
             this.setState({
-                warr: "Your Profile Information is Available on the System. You can continue with the Experience Section"
+                warr:"Your Profile Information is Available on the System. You can continue with the Experience Section"
             })
         }
     }
@@ -51,22 +52,22 @@ export default class UserInfo extends Component {
     myfunc = async () => {
 
         let user = firebase.auth().currentUser
-            console.log(user)
+        console.log(user)
+        
+        firebase.database().ref('Demographic/'+user.uid).once('value').then((snapshot)=>{
             
-            firebase.database().ref('Demographic/'+user.uid).once('value').then((snapshot)=>{
-  
-                snapshot.forEach((childSnapshot)=>{
-
-                    let data =  childSnapshot.val()  || 'Anonymous';
-                    console.log("data: ",data)
-                    this.changeUserInfo(data)
-                    this.warrInfo(data)
-               
+            snapshot.forEach((childSnapshot)=>{
+                let data =  childSnapshot.val() || 'Anonymous';
+                console.log("data: ",data)
+                this.changeUserInfo(data)
+                this.warrInfo(data)
+                
                 })
+        
         })
 
         .catch((err) => {
-          
+        
             console.log(err)
         })
         
