@@ -11,7 +11,7 @@ PushNotification.localNotificationSchedule({
   // foreground: true,
   color: '#034f84',
   vibrate: 300,
-  date : new Date(Date.now() + 7200 * 1000 )  // 5 sn.  =  5*1000
+  date : new Date(Date.now() + 5*1000 )  // 5 sn.  =  5*1000
 })
 
 // Must be outside of any component LifeCycle (such as `componentDidMount`).

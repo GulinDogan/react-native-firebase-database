@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground, TouchableHighlightBase} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ImageBackground, TouchableHighlightBase, Alert} from 'react-native'
 import BG from '../../../images/bg5.jpg'
 import firebase from 'firebase'
+
 
 class Profile extends Component {
   
@@ -24,12 +25,9 @@ class Profile extends Component {
     
     addStore = async () => {
     try{    
-      const user = firebase.auth().currentUser
-      if (user) {
-        console.log('User uid: ', user.uid)
-      
-        DemographicDB = firebase.database().ref("Demographic").child(user.uid)
-        DemographicDB.push({
+      var user = firebase.auth().currentUser
+        
+      firebase.database().ref("Demographic").child(user.uid).push({
           UserName: this.state.UserName,
           Age: this.state.Age,
           Sex: this.state.Sex ,
@@ -40,13 +38,49 @@ class Profile extends Component {
         }) 
         alert("The survey has been successfully saved")
         this.getErr("")
-      }
+      
+         
     }
     catch(err) {
       console.log('Error getting documents', err);
       this.getErr(err)
     }
   }
+
+  
+  updateStore(){
+    try{
+      var user = firebase.auth().currentUser
+      var dbRef= firebase.database().ref("Demographic")
+
+      dbRef.child(user.uid).once('value').then((snapshot)=>{
+            
+        snapshot.forEach((childSnapshot)=>{
+          
+            let key =  childSnapshot.key || 'Anonymous';
+            console.log("Key: ",key)
+
+            dbRef.child(user.uid).child(key).set({
+      
+              UserName: this.state.UserName,
+              Age: this.state.Age,
+              Sex: this.state.Sex ,
+              Height: this.state.Height,
+              Weight: this.state.Weight,
+              Job: this.state.Job 
+      
+            })
+            alert("The survey has been successfully saved")
+            this.getErr("")
+        })
+      })
+    }
+    catch(err){
+      console.log('Error getting documents', err);
+      this.getErr(err)
+    }
+    }
+  
 
   getErr(err){
     if(err){
@@ -63,15 +97,24 @@ class Profile extends Component {
         return { userData };                                 // return new object userData object
       })
     }
-
   }
 
-  render() {
 
+  render() {
     return (
       <ScrollView>
         <ImageBackground source={BG} style={styles.container}>
-    
+        
+        <View style = {styles.updateContainer}>
+        <TouchableOpacity 
+              onPress={() => this.updateStore()}
+              title="Update">
+                  <Text style= {styles.buttonText}>
+                  Update
+              </Text>
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.errorText}>{this.state.userData.warring}</Text>
         <View style = {styles.inputGroup}>  
         <Text>User Name</Text>
@@ -150,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop:15
 },
   inputGroup: {
-    paddingTop:50,
+    paddingTop:20,
     marginBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
@@ -171,13 +214,21 @@ const styles = StyleSheet.create({
     borderRadius:10,
     
 },
-buttonText:{
-    textAlign:'center',
-    color:'#fff',
-    fontWeight:'bold',
-    fontSize:16
+  buttonText:{
+      textAlign:'center',
+      color:'#fff',
+      fontWeight:'bold',
+      fontSize:16
 
-}
+  },
+
+  updateContainer:{
+    backgroundColor:'#196619',
+    padding:8,
+    borderRadius:10,
+    marginLeft: 200,
+   
+  }
 })
 
 
