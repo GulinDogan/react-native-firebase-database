@@ -52,16 +52,18 @@ const styles = StyleSheet.create({
         paddingTop: 200,
     },
      sucessImage:{
-        width: 300,
-        height: 250, 
+        width: 250,
+        height: 200, 
     },
     logoText: {
+        textAlign:'center',
         color:'black',
         fontSize: 30, 
         marginTop: 10,
         opacity:0.5    
     },
     textContainer:{
+        
         paddingTop:50
     }
 })

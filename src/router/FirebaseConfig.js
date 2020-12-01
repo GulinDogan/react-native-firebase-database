@@ -12,24 +12,7 @@ class App extends Component {
   }
   
   componentDidMount(){
-
-    const config = {
-        apiKey: "AIzaSyAnBDaDLvCPdhdbLaRNM1nfdVz8rg5AuZM",
-        authDomain: "experiencesampling-a0ecd.firebaseapp.com",
-        databaseURL: "https://experiencesampling-a0ecd.firebaseio.com",
-        projectId: "experiencesampling-a0ecd",
-        storageBucket: "experiencesampling-a0ecd.appspot.com",
-        messagingSenderId: "822571808990",
-        appId: "1:822571808990:web:ecf53a6ee79f2bb5baaa4f"
-      };
-      
-      if (!firebase.apps.length) {
-        // Initialize Firebase
-        firebase.initializeApp(config)
-
-    }
-
-    
+  
     firebase.auth().onAuthStateChanged(user => {
       if(user){
           this.setState({

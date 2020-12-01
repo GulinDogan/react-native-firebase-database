@@ -60,7 +60,7 @@ onBottomPress = () =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 200,
+        paddingTop: 220,
         padding:20
     },
     header: {

@@ -93,7 +93,7 @@ class LoginForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 200,
+        paddingTop: 220,
         padding:20
     },
     header: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     }, 
     signupTextCont : {
         flexGrow: 1,
-        alignItems:'flex-end',
+        paddingTop:60,
         justifyContent :'center',
         paddingVertical:30,
         flexDirection:'row'
